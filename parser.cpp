@@ -184,9 +184,9 @@ void  Parser::assign_stmt()
 void  Parser::read_stmt()
 {
     pre_update_edge();
-    Nodes.append({true,currentx,currenty,"read\n"});
     post_update_edge(true);
     match("read,READ");
+    Nodes.append({true,currentx,currenty,"read\n    "+token.substr(0, token.find(","))});
     token.erase(0, token.find(",") + 1);
     match("IDENTIFIER");
     currentx += 150;//friend x
@@ -342,14 +342,14 @@ void Parser:: factor(int x,int y )
     {
         cout << ">>>>>>>>>>>>>\n";
         pre_update_edge();
-        Nodes.append({false,currentx,currenty,"NUMBER\n"+token.substr(0, token.find(","))});
+        Nodes.append({false,currentx,currenty,"NUMBER\n      "+token.substr(0, token.find(","))});
         match(token.substr(0, token.find(",")) + ",NUMBER");
 
     }
     else if (token.substr(token.find(",") + 1, token.length() - token.find(",") + 1) == "IDENTIFIER")
     {
         pre_update_edge();
-        Nodes.append({false,currentx,currenty,"IDENTIFIER\n"+token.substr(0, token.find(","))});
+        Nodes.append({false,currentx,currenty,"IDENTIFIER\n      "+token.substr(0, token.find(","))});
         match(token.substr(0, token.find(",")) + ",IDENTIFIER");
     }
 }
